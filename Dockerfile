@@ -1,5 +1,5 @@
 # 1. Start with a lightweight Python base image
-FROM python:3.9-slim
+FROM python:3.10-slim
 
 # 2. Set the folder inside the container where we will work
 WORKDIR /code
