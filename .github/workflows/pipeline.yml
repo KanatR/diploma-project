@@ -29,9 +29,9 @@ jobs:
         bandit -r app/ -ll
 
     - name: Security Scan - Safety (Dependencies)
-      # This checks if your installed libraries have known CVEs
+      # Updated to use 'scan' as 'check' is deprecated
       run: |
-        safety check
+        safety scan
 
     - name: Run Unit Tests
       run: |
