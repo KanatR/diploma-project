@@ -8,7 +8,7 @@ permissions:
   contents: read
 
 jobs:
-  # JOB 1: CI (Continuous Integration) - Test the code
+# JOB 1: CI (Continuous Integration) - Test & Secure
   test_code:
     runs-on: ubuntu-latest
     steps:
@@ -17,10 +17,23 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: "3.9"
+    
     - name: Install dependencies
       run: |
-        pip install fastapi uvicorn jinja2 python-multipart pytest httpx
-    - name: Run Tests
+        pip install fastapi uvicorn jinja2 python-multipart pytest httpx bandit safety
+
+    - name: Security Scan - Bandit (SAST)
+      # This scans app/ for common vulnerabilities
+      # -ll means "report only Medium and High severity issues"
+      run: |
+        bandit -r app/ -ll
+
+    - name: Security Scan - Safety (Dependencies)
+      # This checks if your installed libraries have known CVEs
+      run: |
+        safety check
+
+    - name: Run Unit Tests
       run: |
         pytest
 
