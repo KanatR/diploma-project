@@ -3,4 +3,4 @@ uvicorn
 jinja2
 python-multipart
 pydantic
-filelock>=3.20.1
+filelock>=3.29.1
